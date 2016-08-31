@@ -11,6 +11,16 @@
     margin: 0 auto;
   }
 
+  // Place nav width in variable to offset text centering for title
+  $image-nav-width: 70px;
+  .image-nav-aligner {
+    float: right;
+    width: $image-nav-width;
+    button {
+      margin-right: 5px;
+    }
+  }
+
   .image-title {
     // These states are when the title is not currently visible because the image is not being hovered over
     opacity: 0;
@@ -20,7 +30,7 @@
     min-height: 25px;
     top: -25px;
 
-    padding: 4px;
+    padding: 4px 4px 4px $image-nav-width;
 
     background-color: black;
     color: white;
