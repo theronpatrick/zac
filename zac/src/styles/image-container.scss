@@ -6,9 +6,37 @@
   margin-top: 15px;
   overflow: hidden;
 
+  width: 300px;
+  height: 300px;
+
   img {
     display: block;
     margin: 0 auto;
+  }
+
+  .image-gallery {
+    position: absolute;
+    display: block;
+    img {
+      display: inline;
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  .image-wrapper {
+    display: inline-block;
+    width: 300px;
+  }
+
+  .loading-cover {
+    width: 300px;
+    height: 300px;
+    background-color: black;
+    color: white;
+    position: absolute;
+    top: 0px;
+    padding-top: 150px;
   }
 
   // Place nav width in variable to offset text centering for title
@@ -26,6 +54,7 @@
     opacity: 0;
 
     position: absolute;
+    z-index: 5;
     
     min-height: 25px;
     top: -25px;
@@ -42,6 +71,7 @@
     opacity: 0;
 
     position: absolute;
+    z-index: 5;
     
     min-height: 25px;
     bottom: -25px;
@@ -55,11 +85,11 @@
 
   &:hover {
     .image-title {
-      opacity: 1;
+      opacity: 0.8;
       top: 0;
     }
     .image-description {
-      opacity: 1;
+      opacity: 0.8;
       bottom: 0;
     }
   }
@@ -67,5 +97,10 @@
 
 .ease-in {
   transition: all 250ms cubic-bezier(0.420, 0.000, 1.000, 1.000); /* ease-in */
+  transition-timing-function: cubic-bezier(0.420, 0.000, 1.000, 1.000); /* ease-in */
+}
+
+.slideshow-transition {
+  transition: margin-left 250ms cubic-bezier(0.420, 0.000, 1.000, 1.000); /* ease-in */
   transition-timing-function: cubic-bezier(0.420, 0.000, 1.000, 1.000); /* ease-in */
 }
