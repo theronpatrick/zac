@@ -16,7 +16,7 @@ You will also see any lint errors in the console.
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-You can then run the app from any static server, such as:
+You can then run the app from any static server, like:
 ```
 npm install -g pushstate-server
 pushstate-server build
