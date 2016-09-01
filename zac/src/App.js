@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import GalleryImage from './GalleryImage'
 import './styles/app.scss'; 

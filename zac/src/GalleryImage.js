@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 class GalleryImage extends Component {
 
   componentWillMount() {
-    // Get width from 300 to 1000 to force a random image (apparently ?random param doesn't work with same dimensions?)
+    // Get width from 300 to 1000 to force a random image 
+    // (note that this doesn't always work, but it seems better than using the same dimensions)
     let random = Math.floor(Math.random() * (500 - 300) + 300);
 
     this.setState({
@@ -21,7 +22,6 @@ class GalleryImage extends Component {
   render() {
     let title = "Majestic Stock Photo"
     
-
     let loadingStyle = {
       opacity: this.state.loaded === true ? 0 : 1
     }
