@@ -13,7 +13,6 @@ class GalleryImage extends Component {
   }
 
   _onLoad = () => {
-    console.log("load image")
     this.setState({
       loaded: true
     })

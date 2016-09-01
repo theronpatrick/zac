@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import GalleryImage from './GalleryImage'
 import './styles/app.scss'; 
+import $ from 'jquery';
+var sanitizeHtml = require('sanitize-html');
 
 class App extends Component {
 
@@ -10,7 +12,8 @@ class App extends Component {
       this.setState({
         javascriptEnabled: false,
         imageIndex: 0,
-        imageArray: []
+        imageArray: [],
+        imageDescriptions: []
       })  
   }
 
@@ -20,9 +23,15 @@ class App extends Component {
       imageArray: newArray,
       javascriptEnabled: true
     })
+    this._getDescription(0)
   }
 
   _nextImage = (e) => {
+
+    // Do nothing if JS is not enabled
+    if (!this.state.javascriptEnabled) {
+      return
+    }
 
     let newIndex = this.state.imageIndex + 1
 
@@ -32,19 +41,36 @@ class App extends Component {
     // If we're at end of array, push new image
     if (newIndex === this.state.imageArray.length) {
       newArray.push(<GalleryImage key={newIndex} />);
+      // Also get random descriptions for each image just for fun
+      this._getDescription(newIndex);
     }
     
     this.setState({
       imageArray: newArray,
       imageIndex: this.state.imageIndex + 1
     })
+
   }
 
-  _pushNewImage () {
-
+  _getDescription(index) {
+    $.get({
+      url: "http://dinoipsum.herokuapp.com/api/?format=html&paragraphs=1&words=7"
+    })
+    .then((data) => {
+      let newDescriptions = this.state.imageDescriptions;
+      newDescriptions[index] = data;
+      this.setState({
+        imageDescriptions: newDescriptions
+      })
+    })
   }
 
   _previousImage = (e) => {
+    // Do nothing if JS is not enabled
+    if (!this.state.javascriptEnabled) {
+      return
+    }
+
     if (this.state.imageIndex !== 0) {
       this.setState({
         imageIndex: this.state.imageIndex -1
@@ -54,6 +80,7 @@ class App extends Component {
   
   render() {
     let title = "Majestic Stock Photo"
+    let description = "Randomly selected for your viewing pleasure"
 
     let currentImage;
     if (!this.state.javascriptEnabled) {
@@ -65,6 +92,9 @@ class App extends Component {
         marginLeft: 0 - this.state.imageIndex * 300
       }
       currentImage = <div className="image-gallery slideshow-transition" style={galleryStyle}>{this.state.imageArray}</div>;
+
+      // Set description
+      description = sanitizeHtml(this.state.imageDescriptions[this.state.imageIndex], {allowedTags: []})
     }
 
     return (
@@ -80,7 +110,7 @@ class App extends Component {
               </div>
             </div>
             {currentImage}
-            <div className="image-description ease-in">Randomly selected for your viewing pleasure</div>
+            <div className="image-description ease-in">{description}</div>
         </div>
       </div>
     );
